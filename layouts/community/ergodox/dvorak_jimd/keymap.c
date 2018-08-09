@@ -366,7 +366,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		break;
         case VS_EMAIL:
             if (record->event.pressed) {
-                SEND_STRING("jimdibb@virtustream.com");
+                SEND_STRING("jim.dibb@virtustream.com");
                 return false;
             }		
 		break;
