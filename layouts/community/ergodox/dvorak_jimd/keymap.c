@@ -14,6 +14,7 @@
 #define BRACKETS  7
 #define SHORTCUTS 8
 #define MOUSE 9
+#define RSMITH 10
 
 // macros
 #define MC_COPY_LINE  0
@@ -248,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_ASDN, KC_ASUP, KC_ASRP, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
+                                  TG(RSMITH), KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        M(GMAIL),  KC_TRNS, KC_MS_WH_UP, KC_MS_U, KC_TRNS, KC_TRNS, KC_MS_ACCEL0,
@@ -259,7 +260,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
 	   KC_TRNS, KC_BTN1, KC_BTN2
 ),
-
+[RSMITH] = LAYOUT_ergodox(
+       // left hand
+       RGB_TOG,RGB_MODE_PLAIN,RGB_MODE_BREATHE,RGB_MODE_RAINBOW,RGB_MODE_SWIRL,RGB_MODE_SNAKE,RGB_MODE_KNIGHT,
+       RGB_MOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       RGB_RMOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               TG(RSMITH),KC_TRNS,KC_TRNS,
+       // right hand
+       KC_NO, KC_NO,        KC_NO,    KC_NO,    KC_9,    KC_0,        KC_SPACE,
+       KC_UP, KC_PGUP,        KC_HOME,    KC_UP,      KC_O,     KC_P,        KC_TAB,
+                KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_NO, KC_ESCAPE,
+       KC_DOWN, KC_NO,        KC_END,    KC_NO,    KC_NO, KC_NO,        KC_ENTER,
+                // bottom row
+                KC_NO, KC_LSHIFT, KC_LCTRL,  KC_LALT,    KC_DEL,
+       // thumb cluster
+       RSFT(KC_EQUAL), KC_F8,
+       KC_LBRC,
+       KC_RBRC, KC_LEFT, KC_RIGHT
+)
 };
 
 
@@ -412,6 +436,10 @@ void matrix_scan_user(void) {
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
+        case RSMITH:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
         default:
             // none
             break;
