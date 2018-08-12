@@ -37,6 +37,7 @@
 #define END_NEWLINE 17
 #define GMAIL 18
 #define VS_EMAIL 19
+#define RS_AS 20
 
 
 
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(SHELL_NAV),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(MOUSE),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
                                        // thumb cluster
-                                               OSM(MOD_LSFT), RCTL(KC_S),
+                                               OSM(MOD_LSFT), LCTL(KC_S),
                                                           RCTL(KC_DEL),
                                                KC_BSPC,RCTL(KC_BSPC),KC_DEL,
         // right hand
@@ -249,7 +250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_ASDN, KC_ASUP, KC_ASRP, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
-                                  TG(RSMITH), KC_TRNS, KC_TRNS,
+                                  M(RS_AS), KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        M(GMAIL),  KC_TRNS, KC_MS_WH_UP, KC_MS_U, KC_TRNS, KC_TRNS, KC_MS_ACCEL0,
@@ -263,15 +264,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [RSMITH] = LAYOUT_ergodox(
        // left hand
        RGB_TOG,RGB_MODE_PLAIN,RGB_MODE_BREATHE,RGB_MODE_RAINBOW,RGB_MODE_SWIRL,RGB_MODE_SNAKE,RGB_MODE_KNIGHT,
-       RGB_MOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       RGB_MOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_VOLU,
        RGB_RMOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_VOLD,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
-                               TG(RSMITH),KC_TRNS,KC_TRNS,
+                               M(RS_AS),KC_TRNS,KC_TRNS,
        // right hand
        KC_NO, KC_NO,        KC_NO,    KC_NO,    KC_9,    KC_0,        KC_SPACE,
        KC_UP, KC_PGUP,        KC_HOME,    KC_UP,      KC_O,     KC_P,        KC_TAB,
@@ -391,6 +392,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case VS_EMAIL:
             if (record->event.pressed) {
                 SEND_STRING("jim.dibb@virtustream.com");
+                return false;
+            }		
+		break;
+        case RS_AS:
+            if (record->event.pressed) {
+                autoshift_toggle();
+                layer_invert(RSMITH);
                 return false;
             }		
 		break;
