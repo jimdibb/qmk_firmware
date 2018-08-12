@@ -39,7 +39,7 @@
 #define VS_EMAIL 19
 #define RS_AS 20
 
-
+# pause opens terminal in code
 
 
 
@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         MO(BRACKETS),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         MO(SHELL_NAV),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
-                   OSL(MOUSE),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
+                   MO(MOUSE),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
                                        // thumb cluster
-                                               OSM(MOD_LSFT), LCTL(KC_S),
+                                               SFT_T(KC_PAUSE), LCTL(KC_S),
                                                           RCTL(KC_DEL),
                                                KC_BSPC,RCTL(KC_BSPC),KC_DEL,
         // right hand
@@ -68,10 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_UP,
              KC_DOWN,KC_ENT, KC_SPC
     ),
-     
 
-	 
-	 
 // shell navigation layer
 [SHELL_NAV] = LAYOUT_ergodox(
        // left hand
