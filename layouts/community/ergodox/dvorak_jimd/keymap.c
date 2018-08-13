@@ -39,7 +39,7 @@
 #define VS_EMAIL 19
 #define RS_AS 20
 
-# pause opens terminal in code
+// pause opens terminal in code
 
 
 
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,
+       RCTL(KC_1), RCTL(KC_2),        RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_TRNS,
        KC_TRNS, KC_PGDN,        KC_HOME,    KC_UP,      KC_END,     KC_PGUP,        M(MC_COPY_LINE),
                 RCTL(KC_LEFT),  KC_LEFT,    KC_DOWN,    KC_RIGHT,   RCTL(KC_RIGHT), M(MC_CUT_LINE),
        KC_TRNS, KC_TRNS,        RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), RCTL(KC_Z),        M(MC_PASTE_LINE),
@@ -272,15 +272,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                M(RS_AS),KC_TRNS,KC_TRNS,
        // right hand
        KC_NO, KC_NO,        KC_NO,    KC_NO,    KC_9,    KC_0,        KC_SPACE,
-       KC_UP, KC_PGUP,        KC_HOME,    KC_UP,      KC_O,     KC_P,        KC_TAB,
+       KC_LBRC, KC_PGUP,        KC_HOME,    KC_UP,      KC_O,     KC_P,        KC_TAB,
                 KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_NO, KC_ESCAPE,
-       KC_DOWN, KC_NO,        KC_END,    KC_NO,    KC_NO, KC_NO,        KC_ENTER,
+       KC_RBRC, KC_NO,        KC_END,    KC_NO,    KC_NO, KC_NO,        KC_ENTER,
                 // bottom row
                 KC_NO, KC_LSHIFT, KC_LCTRL,  KC_LALT,    KC_DEL,
        // thumb cluster
        RSFT(KC_EQUAL), KC_F8,
-       KC_LBRC,
-       KC_RBRC, KC_LEFT, KC_RIGHT
+       KC_UP,
+       KC_DOWN, KC_LEFT, KC_RIGHT
 )
 };
 
