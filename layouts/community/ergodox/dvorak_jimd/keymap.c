@@ -6,15 +6,15 @@
 #include "action_code.h"
 
 #define BASE    0 // default layer
-#define SHELL_NAV 2
-#define KEY_NAV 3 // key navigation layer
-#define KEY_SEL 4 // key selection layer
-#define NUMBER  5  // number layer
-#define SYMBOL  6
-#define BRACKETS  7
-#define SHORTCUTS 8
-#define MOUSE 9
-#define RSMITH 10
+#define SHELL_NAV 1
+#define KEY_NAV 2 // key navigation layer
+#define KEY_SEL 3 // key selection layer
+#define NUMBER  4  // number layer
+#define SYMBOL  5
+#define BRACKETS 6
+#define SHORTCUTS 7
+#define MOUSE 8
+#define RSMITH 9
 
 // macros
 #define MC_COPY_LINE  0
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // base layer
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       KC_F6,
+        KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       MEH_T(KC_F6),
         KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         MO(BRACKETS),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         MO(SHELL_NAV),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
@@ -244,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_ASDN, KC_ASUP, KC_ASRP, KC_TRNS, KC_TRNS,
+       KC_TRNS,KC_ASDN, KC_ASUP, KC_ASRP,  KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   M(RS_AS), KC_TRNS, KC_TRNS,
@@ -261,9 +261,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [RSMITH] = LAYOUT_ergodox(
        // left hand
        RGB_TOG,RGB_MODE_PLAIN,RGB_MODE_BREATHE,RGB_MODE_RAINBOW,RGB_MODE_SWIRL,RGB_MODE_SNAKE,RGB_MODE_KNIGHT,
-       RGB_MOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_VOLU,
-       RGB_RMOD,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_VOLD,
+       RGB_MOD,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_VOLU,
+       RGB_RMOD,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+       KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_VOLD,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
