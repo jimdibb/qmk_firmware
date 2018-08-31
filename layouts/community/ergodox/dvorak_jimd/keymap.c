@@ -241,15 +241,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [MOUSE] = LAYOUT_ergodox(
        RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
        KC_TRNS,KC_ASDN, KC_ASUP, KC_ASRP,  KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   M(RS_AS), KC_TRNS, KC_TRNS,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LWIN,
        M(GMAIL),  KC_TRNS, KC_MS_WH_UP, KC_MS_U, KC_TRNS, KC_TRNS, KC_MS_ACCEL0,
                  KC_MS_WH_LEFT, KC_MS_L, KC_MS_D, KC_MS_R, KC_MS_WH_RIGHT, KC_MS_ACCEL1,
        M(VS_EMAIL),  KC_TRNS, KC_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_ACCEL2,
@@ -396,6 +396,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 autoshift_toggle();
                 layer_invert(RSMITH);
+                ergodox_right_led_1_off();
                 return false;
             }		
 		break;
@@ -437,8 +438,8 @@ void matrix_scan_user(void) {
         case KEY_SEL:
             ergodox_right_led_3_on();
             break;        
-        case SHORTCUTS:
-            ergodox_right_led_2_on();
+        case MOUSE:
+            ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             break;
         case RSMITH:
