@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         MO(BRACKETS),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         LM(MOUSE, MOD_LALT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
-                   MO(MOUSE),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
+                   MO(MOUSE),OSM(MOD_LCTL), OSM(MOD_LALT),MO(SYMBOL),MO(NUMBER),  
                                        // thumb cluster
                                                SFT_T(KC_PAUSE), LCTL(KC_S),
                                                           RCTL(KC_DEL),
