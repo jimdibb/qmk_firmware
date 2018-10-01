@@ -480,6 +480,9 @@ void matrix_scan_user(void) {
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
+        case GAME:
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
         default:
             // none
             break;
