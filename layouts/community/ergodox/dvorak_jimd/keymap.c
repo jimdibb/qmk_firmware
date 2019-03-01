@@ -302,7 +302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
        KC_RBRC, KC_N,        KC_M,    KC_COMM,    KC_DOT, KC_SLSH,        KC_RSHIFT,
                 // bottom row
-                KC_NO, KC_LSHIFT, KC_LCTRL,  KC_LALT,   M(GAME_AS),
+                KC_NO, KC_LSHIFT, KC_KP_MINUS,  KC_KP_PLUS,   M(GAME_AS),
        // thumb cluster
        KC_LEFT, KC_RIGHT,
        KC_UP,
