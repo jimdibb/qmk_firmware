@@ -6,7 +6,7 @@
 
 enum layers {
     BASE, // default layer
-    SHELL_NAV,
+    MOUSE,
     KEY_NAV,
     KEY_SEL,
     NUMBER,
@@ -15,7 +15,7 @@ enum layers {
     RSMITH,
     BRACKETS,  // media keys
     SHORTCUTS,
-    MOUSE
+    SHELL_NAV
 };
 
 enum macros {
@@ -312,7 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LCTRL,KC_A,KC_S,KC_D,KC_F,KC_G,
        KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_MS_WH_DOWN,
                // bottom row
-               LSFT_(KC_1),LSFT(KC_2),LSFT(KC_3), LSFT(KC_4),LSFT(KC_5),
+               LSFT(KC_1),LSFT(KC_2),LSFT(KC_3), LSFT(KC_4),LSFT(KC_5),
                                        // thumb cluster
                                        KC_P,KC_M,
                                                KC_L,
