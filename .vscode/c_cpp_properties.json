@@ -1,0 +1,44 @@
+{
+    "configurations": [
+
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/msys64/home/jimdi/qmk_utils/avr8-gnu-toolchain/avr/include/**",
+                "C:/msys64/home/jimdi/qmk_utils/avr8-gnu-toolchain/lib/gcc/avr/5.4.0/include/**",
+                "C:/msys64/home/jimdi/qmk_utils/avr8-gnu-toolchain/lib/gcc/avr/5.4.0/include-fixed/**",
+                "C:/msys64/home/jimdi/qmk_utils/gcc-arm-none-eabi/arm-none-eabi/include/",
+                "C:/msys64/home/jimdi/qmk_utils/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/8.3.1/include",
+                "${workspaceFolder}/",
+                "${workspaceFolder}/tmk_core/common/",
+                "${workspaceFolder}/keyboards/ergodox_ez/",
+                "${workspaceFolder}/quantum/",
+
+                "${workspaceFolder}/quantum/audio/",
+                "${workspaceFolder}/quantum/process_keycode/",
+                "${workspaceFolder}/drivers/avr/",
+                "${workspaceFolder}/lib/chibios/",
+                "${workspaceFolder}/lib/lufa/",
+                "c:/msys64/mingw64/avr/include/",
+                "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/10.2.0/include/"
+            ],
+            "defines": [
+                "QMK_KEYBOARD_H = #include \"ergodox_ez.h\"",
+                "QMK_KEYBOARD = \"ergodox_ez\"",
+                "QMK_KEYMAP = \"dvorak_jimd\""
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "browse": {
+                "path": [
+
+                    "${workspaceFolder}/**"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
