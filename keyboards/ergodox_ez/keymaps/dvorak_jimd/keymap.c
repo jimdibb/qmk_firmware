@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MT(MOD_LSFT, KC_ESC),                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       MEH_T(KC_F6),
         KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         OSM(MOD_LCTL),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
-        MT(MOD_LSFT, KC_LWIN),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
+        KC_LWIN,             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    MO(MOUSE),LM(MOUSE, MOD_LALT), OSM(MOD_LALT),MO(SYMBOL),MO(NUMBER),
                                        // thumb cluster
                                                SFT_T(KC_PAUSE), LCTL(KC_S),
@@ -307,12 +307,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [GAME] = LAYOUT_ergodox(
        // left hand
-       KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,LSFT(KC_1),
+       KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_NO,
        KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_MS_WH_UP,
        KC_LCTRL,KC_A,KC_S,KC_D,KC_F,KC_G,
        KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_MS_WH_DOWN,
                // bottom row
-               KC_LALT,LSFT(KC_2),LSFT(KC_3), LSFT(KC_4),LSFT(KC_5),
+               LSFT_(KC_1),LSFT(KC_2),LSFT(KC_3), LSFT(KC_4),LSFT(KC_5),
                                        // thumb cluster
                                        KC_P,KC_M,
                                                KC_L,
@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
        KC_RBRC, KC_N,        KC_M,    KC_COMM,    KC_DOT, KC_SLSH,        KC_RSHIFT,
                 // bottom row
-                KC_NO, KC_LSHIFT, KC_KP_MINUS,  KC_KP_PLUS,   M(GAME_AS),
+                KC_LALT, KC_LSHIFT, KC_KP_MINUS,  KC_KP_PLUS,   M(GAME_AS),
        // thumb cluster
        KC_LEFT, KC_RIGHT,
        KC_UP,
