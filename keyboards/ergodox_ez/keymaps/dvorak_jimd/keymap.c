@@ -11,11 +11,11 @@ enum layers {
     KEY_SEL,
     NUMBER,
     SYMBOL, // symbols
+    GAME,
+    RSMITH,
     BRACKETS,  // media keys
     SHORTCUTS,
-    MOUSE,
-    RSMITH,
-    GAME
+    MOUSE
 };
 
 enum macros {

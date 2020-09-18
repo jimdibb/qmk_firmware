@@ -13,3 +13,17 @@
 This is what we ship with out of the factory. :) The image says it all:
 
 ![Default](https://i.imgur.com/Be53jH7.png)
+
+* Sep 2020:
+  * Moved crtl and alt keys around
+  * put a dedicated Win key below ctrl
+  * shift is holding esc
+  * moved brackets layer shift to right shift location
+  * In game mode
+    * moved the shifted numbers to the bottom row, for single key press access
+    * moved alt to righthand, leftmost bottom row
+    
+## usage reminder
+
+1. Open Mingw64 terminal
+2. From root of qmk_firmware run `qmk compile` or `qmk flash` to compile and flash
