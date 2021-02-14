@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         MT(MOD_LSFT, KC_ESC),                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       MEH_T(KC_F6),
         KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
-        MO(BRACKETS),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
-        LM(MOUSE, MOD_LALT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
-                   MO(MOUSE),OSM(MOD_LCTL), OSM(MOD_LALT),MO(SYMBOL),MO(NUMBER),
+        OSM(MOD_LCTL),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
+        OSM(MOD_LSFT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
+                   MO(MOUSE),KC_LWIN, OSM(MOD_LALT),MO(SYMBOL),MO(NUMBER),
                                        // thumb cluster
                                                SFT_T(KC_PAUSE), LCTL(KC_S),
                                                           RCTL(KC_DEL),
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_F7,       KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
              KC_PGUP,     KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
                           KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
-             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MT(MOD_LSFT, KC_BSPC),
+             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
                                   // lower keys - browser tab control
                                   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), RCTL(KC_W),
              // thumb cluster
