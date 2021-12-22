@@ -2,8 +2,6 @@
     "keyboard_name": "Treadstone48",
     "url": "https://github.com/marksard/Keyboards",
     "maintainer": "marksard",
-    "width": 14.75,
-    "height": 4,
     "layouts": {
         "LAYOUT_base": {
             "layout": [
@@ -192,11 +190,6 @@
                     "y": 2
                 },
                 {
-                    "label": "Shift",
-                    "x": 13.75,
-                    "y": 2
-                },
-                {
                     "label": "Ctrl",
                     "x": 0.75,
                     "y": 3,
@@ -256,6 +249,11 @@
                     "label": "\u2192",
                     "x": 13.75,
                     "y": 3
+                },
+                {
+                    "label": "Shift",
+                    "x": 13.75,
+                    "y": 2
                 }
             ]
         }
