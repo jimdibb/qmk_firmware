@@ -51,82 +51,83 @@ enum keyboard_macros {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-// base layer
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
-        // left hand
-        MT(MOD_LSFT, KC_ESC),                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       MEH_T(KC_F6),
-        KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
-        OSM(MOD_LCTL),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
-        OSM(MOD_LSFT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
-                   MO(MOUSE),KC_LWIN, OSM(MOD_LALT),MO(SYMBOL),MO(NUMBER),
-                                       // thumb cluster
-                                               SFT_T(KC_PAUSE), LCTL(KC_S),
-                                                          RCTL(KC_DEL),
-                                               KC_BSPC,RCTL(KC_BSPC),KC_DEL,
-        // right hand
-             KC_F7,       KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
-             KC_PGUP,     KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
-                          KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
-             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
-                                  // lower keys - browser tab control
-                                  RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), RCTL(KC_W),
-             // thumb cluster
-             KC_LEFT,KC_RIGHT,
-             KC_UP,
-             KC_DOWN,KC_ENT, KC_SPC
-    ),
-
-// shell navigation layer
-/* [SHELL_NAV] = LAYOUT_ergodox(
-       // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               LALT(KC_D),
-                               KC_TRNS,RCTL(KC_W),KC_TRNS,
-       // right hand
-       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
-       RCTL(KC_L), RCTL(KC_W),     KC_HOME,             KC_UP,           KC_END,          LALT(KC_D),     RCTL(KC_R),
-                   LALT(KC_B),     KC_LEFT,             KC_DOWN,         KC_RIGHT,        LALT(KC_F),     LALT(KC_DOT),
-       RCTL(KC_C), RCTL(KC_U),     M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),      RCTL(KC_K),     M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
-                // bottom row
-                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB),  KC_TRNS,    KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-),
+/* Keymap 0: Base layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  ESc   |  F1  |  F2  |  F3  |  F4  |  F5  |MeH-F6|           | F7  |  F8  |  F9  | F10  |  F11 | F12  |   \ |  |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |  ' " |  , < |  . > |   p  |   y  |  KEY |           |  Pg  |   f  |   g  |   c  |   r  |   l  |   / ?  |
+ * |--------+------+------+------+------+------|  SEL |           |  Up  |------+------+------+------+------+--------|
+ * | CTRL   |   a  |   o  |   e  |   u  |   i  |------|           |------|   d  |   h  |   t  |   n  |   s  |  - _   |
+ * |--------+------+------+------+------+------|  KEY |           |  Pg  |------+------+------+------+------+--------|
+ * | LShift |  ; : |   q  |   j  |   k  |   x  |  NAV |           |  Dn  |   b  |   m  |   w  |   v  |   z  | Brckts |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |MOUSE |  Win |  Alt | SYMB | NUMB |                                       |tab-l |tab-r |new-t | back | close  |   <--- browser tabs
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |vsterm| Save |       | Left | Right|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Delw |       | Up   |        |      |
+ *                                 | Backs|Backsp|------|       |------|  Enter |Space |
+ *                                 | pace |aceW  |  Del |       | Dn   |        |      |
+ *                                 `--------------------'       `----------------------'
  */
+[BASE] = LAYOUT_ergodox_pretty(
+    MT(MOD_LSFT, KC_ESC),       KC_F1,      KC_F2,      KC_F3,      KC_F4,       KC_F5,       MEH_T(KC_F6),     KC_F7,      KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
+    KC_TAB,                    KC_QUOT,     KC_COMM,    KC_DOT,     KC_P,        KC_Y,        MO(KEY_SEL),      KC_PGUP,    KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
+    OSM(MOD_LCTL),              KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                      KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
+    OSM(MOD_LSFT),             KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,        MO(KEY_NAV),      KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
+    MO(MOUSE),                  KC_LWIN,    OSM(MOD_LALT),  MO(SYMBOL)  ,MO(NUMBER),                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), RCTL(KC_W),
+                                       // thumb cluster                                                             // thumb cluster
+                                               SFT_T(KC_PAUSE), LCTL(KC_S),                                         KC_LEFT,    KC_RIGHT,
+                                                          RCTL(KC_DEL),                                             KC_UP,
+                                            KC_BSPC, RCTL(KC_BSPC), KC_DEL,                                           KC_DOWN, KC_ENT, KC_SPC
+),
 
 // key navigation layer
-[KEY_NAV] = LAYOUT_ergodox(
+/*
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |ctl-1 |ctl-2 |ctl-3 | top  |bottom|      | Insert |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        | undo | cut  | paste| copy |      |      |           |      | pgdn | home |  up  |  end | pgup | cpyln  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|word-l| left | down |right |word-r| cutln  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      | copy | cut  |paste | undo | pstln  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |        |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[KEY_NAV] = LAYOUT_ergodox_pretty(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,LCTL(KC_Z),LCTL(KC_X),LCTL(KC_V),LCTL(KC_C),KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       RCTL(KC_1), RCTL(KC_2),        RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_TRNS,
-       KC_TRNS, KC_PGDN,        KC_HOME,    KC_UP,      KC_END,     KC_PGUP,        MCPYLINE,
-                RCTL(KC_LEFT),  KC_LEFT,    KC_DOWN,    KC_RIGHT,   RCTL(KC_RIGHT), MCUTLINE,
-       KC_TRNS, KC_TRNS,        RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), RCTL(KC_Z),     MPASTELINE,
-                // bottom row
-                KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_1),     RCTL(KC_2),     RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_INSERT,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    RCTL(KC_LEFT),  KC_LEFT,       KC_DOWN,                KC_RIGHT,               RCTL(KC_RIGHT), MCUTLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,        RCTL(KC_C),    RCTL(KC_X),             RCTL(KC_V),             RCTL(KC_Z),     MPASTELINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                KC_TRNS,        KC_TRNS,        KC_TRNS,       KC_TRNS,                KC_TRNS,
+
+                                    // thumb cluster                                        //thumb cluster
+                                    KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS,
+                                            KC_TRNS,                                        KC_TRNS,
+                            KC_TRNS,KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS, KC_TRNS
+    //    // right hand
+    //    RCTL(KC_1), RCTL(KC_2),        RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_TRNS,
+    //    KC_TRNS, KC_PGDN,        KC_HOME,    KC_UP,      KC_END,     KC_PGUP,        MCPYLINE,
+    //             RCTL(KC_LEFT),  KC_LEFT,    KC_DOWN,    KC_RIGHT,   RCTL(KC_RIGHT), MCUTLINE,
+    //    KC_TRNS, KC_TRNS,        RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), RCTL(KC_Z),     MPASTELINE,
+    //             // bottom row
+    //             KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
+    //    // thumb cluster
+    //    KC_TRNS, KC_TRNS,
+    //    KC_TRNS,
+    //    KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 // key selection layer
