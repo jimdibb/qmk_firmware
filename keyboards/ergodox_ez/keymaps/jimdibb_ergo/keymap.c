@@ -87,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // key navigation layer
 /*
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |ctl-1 |ctl-2 |ctl-3 | top  |bottom|      | Insert |
+ * |        |      |      |      |      |      |      |           |ctl-1 |ctl-2 |ctl-3 |cs-pup|cs-pdn|      | Insert |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | undo | cut  | paste| copy |      |      |           |      | pgdn | home |  up  |  end | pgup | cpyln  |
+ * |        | undo | cut  | paste| copy |      |      |           |  top | pgdn | home |  up  |  end | pgup | cpyln  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|word-l| left | down |right |word-r| cutln  |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           |bottom|------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      | copy | cut  |paste | undo | pstln  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |        |
@@ -108,122 +108,161 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [KEY_NAV] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_1),     RCTL(KC_2),     RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_INSERT,
-    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        RCTL(KC_HOME),  KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    RCTL(KC_LEFT),  KC_LEFT,       KC_DOWN,                KC_RIGHT,               RCTL(KC_RIGHT), MCUTLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,        RCTL(KC_C),    RCTL(KC_X),             RCTL(KC_V),             RCTL(KC_Z),     MPASTELINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                KC_TRNS,        KC_TRNS,        KC_TRNS,       KC_TRNS,                KC_TRNS,
-
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_END),   KC_TRNS,        KC_TRNS,       KC_TRNS,                KC_TRNS,                KC_TRNS,        MPASTELINE,
+              // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
                                     // thumb cluster                                        //thumb cluster
                                     KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS,
                                             KC_TRNS,                                        KC_TRNS,
                             KC_TRNS,KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS, KC_TRNS
-    //    // right hand
-    //    RCTL(KC_1), RCTL(KC_2),        RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_TRNS,
-    //    KC_TRNS, KC_PGDN,        KC_HOME,    KC_UP,      KC_END,     KC_PGUP,        MCPYLINE,
-    //             RCTL(KC_LEFT),  KC_LEFT,    KC_DOWN,    KC_RIGHT,   RCTL(KC_RIGHT), MCUTLINE,
-    //    KC_TRNS, KC_TRNS,        RCTL(KC_C), RCTL(KC_X), RCTL(KC_V), RCTL(KC_Z),     MPASTELINE,
-    //             // bottom row
-    //             KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-    //    // thumb cluster
-    //    KC_TRNS, KC_TRNS,
-    //    KC_TRNS,
-    //    KC_TRNS, KC_TRNS, KC_TRNS
-),
+ ),
 
 // key selection layer
-[KEY_SEL] = LAYOUT_ergodox(
+/*
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |ctl-1 |ctl-2 |ctl-3 | top  |bottom|      | Insert |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        | undo | cut  | paste| copy |      |      |           |  sel | pgdn | home |  up  |  end | pgup | cpyln  | <-- motions all extend selection
+ * |--------+------+------+------+------+------|      |           |  top |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|word-l| left | down |right |word-r| cutln  |
+ * |--------+------+------+------+------+------|      |           |  sel |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |bottom|selall| copy | cut  |paste | undo | pstln  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |        |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[KEY_SEL] = LAYOUT_ergodox_pretty(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,LCTL(KC_Z),LCTL(KC_X),LCTL(KC_V),LCTL(KC_C),KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,                KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,                 KC_TRNS,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        RSFT(RCTL(KC_HOME)),    RSFT(KC_PGDN),       RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),           MCPYLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                            RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)),    MCUTLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RSFT(RCTL(KC_END)),     RCTL(KC_A),          RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RCTL(KC_Z),              MPASTELINE,
                // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
                                        // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS,       KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,              KC_TRNS,
-       RSFT(RCTL(KC_HOME)), RSFT(KC_PGDN),       RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),  MCPYLINE,
-                      RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)), MCUTLINE,
-       RSFT(RCTL(KC_END)), RCTL(KC_A),             RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RCTL(KC_Z),   MPASTELINE,
-                // bottom row
-                KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+                                       KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS,
+                                               KC_TRNS,                                     KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS
+
 ),
 
 // number layer
-[NUMBER] = LAYOUT_ergodox(
+/*
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        | undo | cut  | paste| copy |      |      |           |      |  +   |   7  |  8   |  9   |  *   |        | <-- motions all extend selection
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|  -   |   4  |  5   |  6   |  /   |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |  =   |   1  |  2   |  3   |  :   |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |   0  |  .   |  ,   |      |        |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[NUMBER] = LAYOUT_ergodox_pretty(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,LCTL(KC_Z),LCTL(KC_X),LCTL(KC_V),LCTL(KC_C),KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_PLUS,             KC_7,          KC_8,          KC_9,           KC_ASTR,     KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    KC_MINS,             KC_4,          KC_5,          KC_6,           KC_SLSH,     KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_EQUAL,            KC_1,          KC_2,          KC_3,           KC_COLN,     KC_TRNS,
                // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                                                          KC_0,          KC_DOT,        KC_COMMA,       KC_TRNS,     KC_TRNS,
                                        // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_PLUS,  KC_7,    KC_8,    KC_9,     KC_ASTR, KC_TRNS,
-                KC_MINS,  KC_4,    KC_5,    KC_6,     KC_SLSH, KC_TRNS,
-       KC_TRNS, KC_EQUAL, KC_1,    KC_2,    KC_3,     KC_COLN, KC_TRNS,
-                               // bottom row
-                                KC_0, KC_DOT, KC_COMMA, KC_TRNS,  KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_ENT, KC_SPC
+                                       KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS,
+                                               KC_TRNS,                                     KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS
+
 ),
 
-
-[SYMBOL] = LAYOUT_ergodox(
+// symbol layer
+/*
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        | undo | cut  | paste| copy |      |      |           |      |  +   |   &  |  *   |  `   |  ~   |        | <-- motions all extend selection
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|  -   |   $  |  ^   |  ^   |  |   |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |  =   |   !  |  @   |  #   |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |  .   |  ,   |      |        |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[SYMBOL] = LAYOUT_ergodox_pretty(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_PLUS, KC_AMPR, KC_ASTR, KC_GRAVE,KC_TILD, KC_TRNS,
-                KC_MINS, KC_DLR,  KC_PERC, KC_CIRC, KC_PIPE, KC_TRNS,
-       KC_TRNS, KC_EQUAL,KC_EXLM, KC_AT,   KC_HASH, KC_TRNS, KC_TRNS,
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       SEMICOLON_NEWLINE, END_NEWLINE,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_PLUS,             KC_AMPR,       KC_ASTR,       KC_GRAVE,       KC_TILD,     KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    KC_MINS,             KC_DLR,        KC_PERC,       KC_CIRC,        KC_PIPE,     KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_EQUAL,            KC_EXLM,       KC_AT,         KC_HASH,        KC_TRNS,     KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                                                          KC_TRNS,       KC_DOT,        KC_COMMA,       KC_TRNS,     KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,                                     SEMICOLON_NEWLINE, END_NEWLINE,
+                                               KC_TRNS,                                     KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS
+
 ),
 
-[BRACKETS] = LAYOUT_ergodox(
+// brackets layer
+/*
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      | {}   |  ()  |  []  |      |      |           |      |      |  []  |  ()  |  {}  |      |        | <-- motions all extend selection
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |  (   |  )   |  [   |  ]   |      |------|           |------|      |  [   |  ]   |  (   |   )  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |  {   |  }   |      |      |           |      |      |  {   |  }   |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |        |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[BRACKETS] = LAYOUT_ergodox_pretty(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,            KC_TRNS,               KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,OCCURL,              OCPAREN,            OCBRAC,                 KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_LPRN, KC_RPRN,            KC_LBRC,            KC_RBRC,               KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,             KC_LCBR,            KC_RCBR,               KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,            KC_TRNS,
-                                        KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS, KC_TRNS, OCBRAC,OCPAREN,OCCURL,KC_TRNS,KC_TRNS,
-                KC_TRNS, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS,
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
+    KC_TRNS,    KC_TRNS,    OCCURL,     OCPAREN,    OCBRAC,     KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,             OCBRAC,        OCPAREN,       OCCURL,         KC_TRNS,     KC_TRNS,
+    KC_TRNS,    KC_LPRN,    KC_RPRN,    KC_LBRC,    KC_RBRC,    KC_TRNS,                                    KC_TRNS,             KC_LBRC,       KC_RBRC,       KC_LPRN,        KC_RPRN,     KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_LCBR,    KC_RCBR,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,             KC_LCBR,       KC_RCBR,       KC_TRNS,        KC_TRNS,     KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                                                          KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS,
+                                               KC_TRNS,                                     KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS
+
 ),
+
 
 [SHORTCUTS] = LAYOUT_ergodox(
        // left hand
