@@ -89,11 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |ctl-1 |ctl-2 |ctl-3 |cs-pup|cs-pdn|      | Insert |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | undo | cut  | paste| copy |      |      |           |  top | pgdn | home |  up  |  end | pgup | cpyln  |
+ * |        | undo | cut  | paste| copy |selall|      |           |  top | pgdn | home |  up  |  end | pgup | cpyln  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|word-l| left | down |right |word-r| cutln  |
  * |--------+------+------+------+------+------|      |           |bottom|------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      | copy | cut  |paste | undo | pstln  |
+ * |        |      |      |      |      |      |      |           |      |selall| copy | cut  |paste | undo | pstln  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |        |
  *   `----------------------------------'                                       `----------------------------------'
@@ -108,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [KEY_NAV] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_1),     RCTL(KC_2),     RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_INSERT,
-    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        RCTL(KC_HOME),  KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        RCTL(KC_HOME),  KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    RCTL(KC_LEFT),  KC_LEFT,       KC_DOWN,                KC_RIGHT,               RCTL(KC_RIGHT), MCUTLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_END),   KC_TRNS,        KC_TRNS,       KC_TRNS,                KC_TRNS,                KC_TRNS,        MPASTELINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_END),   RCTL(KC_A),     RCTL(KC_C),    RCTL(KC_X),             RCTL(KC_V),             RCTL(KC_Z),     MPASTELINE,
               // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
                                     // thumb cluster                                        //thumb cluster
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [KEY_SEL] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,                KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,                 KC_TRNS,
-    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        RSFT(RCTL(KC_HOME)),    RSFT(KC_PGDN),       RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),           MCPYLINE,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        RSFT(RCTL(KC_HOME)),    RSFT(KC_PGDN),       RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),           MCPYLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                            RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)),    MCUTLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RSFT(RCTL(KC_END)),     RCTL(KC_A),          RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RCTL(KC_Z),              MPASTELINE,
                // bottom row
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NUMBER] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,     KC_TRNS,
-    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_PLUS,             KC_7,          KC_8,          KC_9,           KC_ASTR,     KC_TRNS,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        KC_TRNS,        KC_PLUS,             KC_7,          KC_8,          KC_9,           KC_ASTR,     KC_TRNS,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    KC_MINS,             KC_4,          KC_5,          KC_6,           KC_SLSH,     KC_TRNS,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_EQUAL,            KC_1,          KC_2,          KC_3,           KC_COLN,     KC_TRNS,
                // bottom row
@@ -360,20 +360,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case OCPAREN:
             // D(LSFT), T(9), T(0), U(LSFT), T(LEFT), END);
-                SEND_STRING(SS_LSFT("90")SS_TAP(X_LEFT));
+                SEND_STRING(SS_LSFT("90"));
+                SEND_STRING(SS_DELAY(100) SS_TAP(X_LEFT)); // without a delay the left happens before the brackets are inserted
+                // in the vscode editor.... only...  weird...
                 return false;
             case OCBRAC:
             // D(LSFT), T(9), T(0), U(LSFT), T(LEFT), END);
-                SEND_STRING("[]"SS_TAP(X_LEFT));
+                SEND_STRING("[]");
+                SEND_STRING(SS_DELAY(100) SS_TAP(X_LEFT));
                 return false;
             case OCCURL:
             // D(LSFT), T(9), T(0), U(LSFT), T(LEFT), END);
-                SEND_STRING(SS_LSFT("[]")SS_TAP(X_LEFT));
+                SEND_STRING(SS_LSFT("[]"));
+                SEND_STRING(SS_DELAY(100) SS_TAP(X_LEFT));
                 return false;
-            case OCSINGLE:
+            case OCSINGLE: // not used or tested, implemented in vscode settings
                 SEND_STRING("''" SS_TAP(X_LEFT));
                 return false;
-            case OCDOUBLE:
+            case OCDOUBLE: // not user or tested, as above
                 SEND_STRING(SS_DOWN(X_LSFT) "''"  SS_UP(X_LSFT) SS_TAP(X_LEFT));
                 return false;
             case MCPYLINE:
