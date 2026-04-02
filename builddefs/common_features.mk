@@ -868,6 +868,11 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     endif
 endif
 
+#APPLE PATCH
+ifeq ($(strip $(APPLE_FN_ENABLE)), yes)
+    OPT_DEFS += -DAPPLE_FN_ENABLE
+endif
+#APPLE PATCH
 USBPD_ENABLE ?= no
 VALID_USBPD_DRIVER_TYPES = custom vendor
 USBPD_DRIVER ?= vendor
