@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_1),     RCTL(KC_2),     RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_INSERT,
     KC_TRNS,    LCMD(KC_Z), LCMD(KC_X), LCMD(KC_V), LCMD(KC_C), LCMD(KC_A), KC_TRNS,        LCMD(KC_UP),  KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    LALT(KC_LEFT),  KC_LEFT,       KC_DOWN,                KC_RIGHT,               LALT(KC_RIGHT), MCUTLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_DOWN),   LCMD(KC_A),     LCMD(KC_C),    LCMD(KC_X),             LCMD(KC_V),             LCMD(KC_Z),     MPASTELINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        LCMD(KC_DOWN),   LCMD(KC_A),     LCMD(KC_C),    LCMD(KC_X),             LCMD(KC_V),             LCMD(KC_Z),     MPASTELINE,
               // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
                                     // thumb cluster                                        //thumb cluster
