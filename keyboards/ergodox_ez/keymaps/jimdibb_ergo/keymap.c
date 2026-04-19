@@ -5,6 +5,8 @@
 #include "action_code.h"
 #include "mousekey.h"
 
+static uint16_t spc_tap_timer;
+
 enum keyboard_layers {
     BASE = 0,
     //SHELL_NAV,
@@ -51,6 +53,7 @@ enum keyboard_macros {
     SWITCH_NDS,
     RS_AS,
     GAME_FNITE,
+    M_CMD_SPACE
 
 };
 
@@ -98,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  KEY |           |  Pg  |------+------+------+------+------+--------|
  * | LShift |  ; : |   q  |   j  |   k  |   x  |  NAV |           |  Dn  |   b  |   m  |   w  |   v  |   z  | Brckts |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |MOUSE |  Win |  Alt | SYMB | NUMB |                                       |tab-l |tab-r |new-t | back | close  |   <--- browser tabs
+ *   |MOUSE |  Win |  Alt | SYMB | NUMB |                                       |tab-l |tab-r |back  | new  | close  |   <--- browser tabs
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |vsterm| Save |       | Left | Right|
@@ -113,11 +116,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,                    KC_QUOT,     KC_COMM,    KC_DOT,     KC_P,        KC_Y,        MO(KEY_SEL),      KC_PGUP,    KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
     OSM(MOD_LGUI),              KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                      KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
     OSM(MOD_LSFT),             KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,        MO(MAC_KEY_NAV),      KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
-    MO(MOUSE),                  KC_LEFT_CTRL,    OSM(MOD_LALT),  MO(SYMBOL)  ,MO(NUMBER),                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), LCMD(KC_LEFT), LCMD(KC_T),  LCMD(KC_W),
+    MO(MOUSE),                  KC_LEFT_CTRL,    OSM(MOD_LALT),  MO(SYMBOL)  , M_CMD_SPACE,                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), LCMD(KC_LEFT), LCMD(KC_T),  LCMD(KC_W),
                                        // thumb cluster                                                             // thumb cluster
                                                RALT(RSFT(RCTL(KC_GRV))), LGUI(KC_S),                                         KC_LEFT,    KC_RIGHT,
-                                                          RCTL(KC_DEL),                                             KC_UP,
-                                            KC_BSPC, RCTL(KC_BSPC), KC_DEL,                                           KC_DOWN, KC_ENT, KC_SPC
+                                                          RALT(KC_DEL),                                             KC_UP,
+                                            KC_BSPC, RALT(KC_BSPC), KC_DEL,                                           KC_DOWN, KC_ENT, KC_SPC
 ),
 
 // key navigation layer
@@ -360,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MAC_AS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
        KC_TRNS, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
        KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
-       KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   RS_AS,KC_TRNS, KC_TRNS,
@@ -451,7 +454,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+bool n_key_tapping_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case M_CMD_SPACE:
+            return true; // This tells QMK to count taps for this key
+        default:
+            return false;
+    }
+}
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // 1. Handle keys that need BOTH press and release logic (like M_CMD_SPACE)
+    switch(keycode) {
+        case M_CMD_SPACE:
+            if (record->event.pressed) {
+                    // Start a timer to see if it's a tap or hold
+                    spc_tap_timer = timer_read();
+                    layer_on(NUMBER); // Switch to your desired layer (e.g., Layer 1)
+                } else {
+                    layer_off(NUMBER);
+                    // If the key was pressed and released quickly (a tap)
+                    if (timer_elapsed(spc_tap_timer) < TAPPING_TERM) {
+                        tap_code16(LGUI(KC_SPC));
+                    }
+                }
+            return false;
+    }
+    // 2. Handle keys that only trigger on "Press"
     if (record->event.pressed){
         switch (keycode) {
             case OCPAREN:
@@ -518,6 +546,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_invert(FORTNITE);
                 //ergodox_right_led_1_off();
                 return false;
+            
+      return false;
         }
     }
     return true;
