@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MAC_KEY_NAV] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RCTL(KC_1),     RCTL(KC_2),     RCTL(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_INSERT,
-    KC_TRNS,    LCMD(KC_Z), LCMD(KC_X), LCMD(KC_V), LCMD(KC_C), LCMD(KC_A), KC_TRNS,        LCMD(KC_UP),  KC_PGDN,        KC_HOME,       KC_UP,                  KC_END,                 KC_PGUP,        MCPYLINE,
+    KC_TRNS,    LCMD(KC_Z), LCMD(KC_X), LCMD(KC_V), LCMD(KC_C), LCMD(KC_A), KC_TRNS,        LCMD(KC_UP),  KC_PGUP,        LCMD(KC_LEFT),       KC_UP,                  LCMD(KC_RIGHT),                 KC_PGDN,        MCPYLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    LALT(KC_LEFT),  KC_LEFT,       KC_DOWN,                KC_RIGHT,               LALT(KC_RIGHT), MCUTLINE,
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        LCMD(KC_DOWN),   LCMD(KC_A),     LCMD(KC_C),    LCMD(KC_X),             LCMD(KC_V),             LCMD(KC_Z),     MPASTELINE,
               // bottom row
@@ -215,9 +215,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [KEY_SEL] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,                KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,                 KC_TRNS,
-    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        RSFT(RCTL(KC_HOME)),    RSFT(KC_PGDN),       RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),           MCPYLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                            RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)),    MCUTLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RSFT(RCTL(KC_END)),     RCTL(KC_A),          RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RCTL(KC_Z),              MPASTELINE,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        RSFT(LCMD(KC_UP)),    RSFT(KC_PGUP),       RSFT(LCMD(KC_LEFT)), RSFT(KC_UP),   RSFT(LCMD(KC_RIGHT)),   RSFT(KC_PGDN),           MCPYLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                            RSFT(LALT(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(LALT(KC_RIGHT)),    MCUTLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RSFT(LCMD(KC_DOWN)),     LCMD(KC_A),          LCMD(KC_C),    LCMD(KC_X),    LCMD(KC_V),     LCMD(KC_Z),              MPASTELINE,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
                                        // thumb cluster
