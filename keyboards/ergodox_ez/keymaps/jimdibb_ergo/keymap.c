@@ -8,9 +8,9 @@
 static uint16_t spc_tap_timer;
 
 enum keyboard_layers {
-    BASE = 0,
+    MAC = 0,
     //SHELL_NAV,
-    MAC,
+    BASE,
     KEY_NAV,
     MAC_KEY_NAV,
     KEY_SEL,
@@ -45,7 +45,7 @@ enum keyboard_macros {
     END_NEWLINE,
     GMAIL,
     EXAGRID,
-    MAC_AS,
+    BASE_AS,
     GAME_AS,
     MCPYLINE,
     MCUTLINE,
@@ -360,8 +360,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [MOUSE] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, //RGB_TOG, RGB_MOD
-       MAC_AS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
-       KC_TRNS, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
+       BASE_AS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
+       LGUI(LCTL(KC_Q)), KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
        KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
                                            KC_TRNS, KC_TRNS,
@@ -528,8 +528,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case GMAIL:
                 SEND_STRING("jimdibb@gmail.com");
                 return false;
-            case MAC_AS:
-                layer_invert(MAC);
+            case BASE_AS:
+                layer_invert(BASE);
                 return false;
             case RS_AS:
                 autoshift_toggle();
