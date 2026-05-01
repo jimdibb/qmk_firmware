@@ -1,0 +1,1 @@
+qmk flash -kb ergodox_ez -km jimdibb_ergo

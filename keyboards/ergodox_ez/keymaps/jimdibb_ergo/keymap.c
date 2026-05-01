@@ -5,10 +5,14 @@
 #include "action_code.h"
 #include "mousekey.h"
 
+static uint16_t spc_tap_timer;
+
 enum keyboard_layers {
-    BASE = 0,
+    MAC = 0,
     //SHELL_NAV,
+    BASE,
     KEY_NAV,
+    MAC_KEY_NAV,
     KEY_SEL,
     NUMBER,
     SYMBOL,
@@ -17,7 +21,7 @@ enum keyboard_layers {
     MOUSE,
     RSMITH,
     GAME,
-    FORTNITE,
+    FORTNITE
 };
 
 
@@ -40,8 +44,8 @@ enum keyboard_macros {
     SEMICOLON_NEWLINE,
     END_NEWLINE,
     GMAIL,
-    VS_EMAIL,
-    DELL,
+    EXAGRID,
+    BASE_AS,
     GAME_AS,
     MCPYLINE,
     MCUTLINE,
@@ -49,6 +53,7 @@ enum keyboard_macros {
     SWITCH_NDS,
     RS_AS,
     GAME_FNITE,
+    M_CMD_SPACE
 
 };
 
@@ -81,9 +86,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     OSM(MOD_LSFT),             KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,        MO(KEY_NAV),      KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
     MO(MOUSE),                  KC_LWIN,    OSM(MOD_LALT),  MO(SYMBOL)  ,MO(NUMBER),                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), RCTL(KC_W),
                                        // thumb cluster                                                             // thumb cluster
-                                               SFT_T(KC_PAUSE), LCTL(KC_S),                                         KC_LEFT,    KC_RIGHT,
+                                               LCTL(KC_PAUSE), LCTL(KC_S),                                         KC_LEFT,    KC_RIGHT,
                                                           RCTL(KC_DEL),                                             KC_UP,
                                             KC_BSPC, RCTL(KC_BSPC), KC_DEL,                                           KC_DOWN, KC_ENT, KC_SPC
+),
+/* Keymap 0: MAC layer. 
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  ESc   |  F1  |  F2  |  F3  |  F4  |  F5  |MeH-F6|           | F7  |  F8  |  F9  | F10  |  F11 | F12  |   \ |  |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |  ' " |  , < |  . > |   p  |   y  |  KEY |           |  Pg  |   f  |   g  |   c  |   r  |   l  |   / ?  |
+ * |--------+------+------+------+------+------|  SEL |           |  Up  |------+------+------+------+------+--------|
+ * | Cmd    |   a  |   o  |   e  |   u  |   i  |------|           |------|   d  |   h  |   t  |   n  |   s  |  - _   |
+ * |--------+------+------+------+------+------|  KEY |           |  Pg  |------+------+------+------+------+--------|
+ * | LShift |  ; : |   q  |   j  |   k  |   x  |  NAV |           |  Dn  |   b  |   m  |   w  |   v  |   z  | Brckts |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |MOUSE |  Win |  Alt | SYMB | NUMB |                                       |tab-l |tab-r |back  | new  | close  |   <--- browser tabs
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |vsterm| Save |       | Left | Right|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Delw |       | Up   |        |      |
+ *                                 | Backs|Backsp|------|       |------|  Enter |Space |
+ *                                 | pace |aceW  |  Del |       | Dn   |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[MAC] = LAYOUT_ergodox_pretty(
+    MT(MOD_LSFT, KC_ESC),       KC_1,      KC_2,      KC_3,      KC_4,       KC_5,       MEH_T(KC_6),          KC_7,      KC_8,       KC_9,       KC_0,        KC_MINS,       KC_EQUAL,       KC_BSLS,
+    KC_TAB,           KC_QUOT,     KC_COMM,    KC_DOT,     KC_P,        KC_Y,               MO(KEY_SEL),            KC_PGUP,    KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
+    OSM(MOD_LGUI),    KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                                    KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
+    OSM(MOD_LSFT),    KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,               MO(MAC_KEY_NAV),        KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
+    MO(MOUSE),        KC_LEFT_CTRL,    OSM(MOD_LALT),  MO(SYMBOL)  , M_CMD_SPACE,                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), LCMD(KC_LEFT), LCMD(KC_T),  LCMD(KC_W),
+                                       // thumb cluster                                                             // thumb cluster
+                                               RSFT(RCTL(KC_GRV)), LGUI(KC_S),                                         KC_LEFT,    KC_RIGHT,
+                                                          RALT(KC_DEL),                                             KC_UP,
+                                            KC_BSPC, RALT(KC_BSPC), KC_DEL,                                           KC_DOWN, KC_ENT, KC_SPC
 ),
 
 // key navigation layer
@@ -120,7 +157,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_TRNS,                                        KC_TRNS,
                             KC_TRNS,KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS, KC_TRNS
  ),
-
+// key navigation layer
+/*
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |ctl-1 |ctl-2 |ctl-3 |cs-pup|cs-pdn|      | Insert |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        | undo | cut  | paste| copy |selall|      |           |  top | pgdn | home |  up  |  end | pgup | cpyln  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|word-l| left | down |right |word-r| cutln  |
+ * |--------+------+------+------+------+------|      |           |bottom|------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |selall| copy | cut  |paste | undo | pstln  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |        |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[MAC_KEY_NAV] = LAYOUT_ergodox_pretty(
+       // left hand
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        LGUI(KC_1),   LGUI(KC_2),     LGUI(KC_3),    RCTL(RSFT(KC_PGUP)),    RCTL(RSFT(KC_PGDN)),    KC_TRNS,        KC_INSERT,
+    KC_TRNS,    LCMD(KC_Z), LCMD(KC_X), LCMD(KC_V), LCMD(KC_C), LCMD(KC_A), KC_TRNS,        LCMD(KC_UP),  KC_PGUP,        LCMD(KC_LEFT),       KC_UP,                  LCMD(KC_RIGHT),                 KC_PGDN,        MCPYLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                    LALT(KC_LEFT),  KC_LEFT,       KC_DOWN,                KC_RIGHT,               LALT(KC_RIGHT), MCUTLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        LCMD(KC_DOWN),   LCMD(KC_A),     LCMD(KC_C),    LCMD(KC_X),             LCMD(KC_V),             LCMD(KC_Z),     MPASTELINE,
+              // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
+                                    // thumb cluster                                        //thumb cluster
+                                    KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS,
+                                            KC_TRNS,                                        KC_TRNS,
+                            KC_TRNS,KC_TRNS,KC_TRNS,                                        KC_TRNS, KC_TRNS, KC_TRNS
+ ),
 // key selection layer
 /*
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -145,9 +215,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [KEY_SEL] = LAYOUT_ergodox_pretty(
        // left hand
     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,                KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,                 KC_TRNS,
-    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        RSFT(RCTL(KC_HOME)),    RSFT(KC_PGDN),       RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),           MCPYLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                            RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)),    MCUTLINE,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RSFT(RCTL(KC_END)),     RCTL(KC_A),          RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RCTL(KC_Z),              MPASTELINE,
+    KC_TRNS,    LCTL(KC_Z), LCTL(KC_X), LCTL(KC_V), LCTL(KC_C), LCTL(KC_A), KC_TRNS,        RSFT(LCMD(KC_UP)),    RSFT(KC_PGUP),       RSFT(LCMD(KC_LEFT)), RSFT(KC_UP),   RSFT(LCMD(KC_RIGHT)),   RSFT(KC_PGDN),           MCPYLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                            RSFT(LALT(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(LALT(KC_RIGHT)),    MCUTLINE,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        RSFT(LCMD(KC_DOWN)),     LCMD(KC_A),          LCMD(KC_C),    LCMD(KC_X),    LCMD(KC_V),     LCMD(KC_Z),              MPASTELINE,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
                                        // thumb cluster
@@ -280,7 +350,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MEH(KC_F7), MEH(KC_F8), MEH(KC_F9), MEH(KC_F10),  MEH(KC_F11), MEH(KC_F12),  SWITCH_NDS,
        KC_TRNS, MEH(KC_A), MEH(KC_B),    MEH(KC_C),    MEH(KC_D),    MEH(KC_E), MEH(KC_F),
                 MEH(KC_G), MEH(KC_H),    MEH(KC_I),    MEH(KC_J),    MEH(KC_K), MEH(KC_L),
-       KC_TRNS, MEH(KC_M), MEH(KC_N),    MEH(KC_O),    MEH(KC_P),    MEH(KC_Q), KC_CAPSLOCK,
+       KC_TRNS, MEH(KC_M), MEH(KC_N),    MEH(KC_O),    MEH(KC_P),    MEH(KC_Q), KC_CAPS_LOCK,
                            MEH(KC_S),    MEH(KC_T),    MEH(KC_U),    MEH(KC_V), MEH(KC_X),
        MEH(KC_6), MEH(KC_7),
        MEH(KC_8),
@@ -288,30 +358,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-[MOUSE] = LAYOUT_ergodox(
-       RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
-       KC_TRNS, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
-       KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
-       KC_TRNS,KC_ASDN, KC_ASUP, KC_ASRP,  KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  RS_AS,KC_TRNS, KC_TRNS,
-    // right hand
-       DELL,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LWIN,
-       GMAIL,  KC_TRNS, KC_MS_WH_UP, KC_MS_U, KC_TRNS, KC_TRNS, KC_MS_ACCEL0,
-                 KC_MS_WH_LEFT, KC_MS_L, KC_MS_D, KC_MS_R, KC_MS_WH_RIGHT, KC_MS_ACCEL1,
-       VS_EMAIL,  KC_TRNS, KC_MS_WH_DOWN, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_ACCEL2,
-                          KC_TRNS, KC_TRNS, KC_TRNS, GAME_FNITE, GAME_AS,
-       LALT(LSFT(KC_TAB)), LALT(KC_TAB),
-       KC_TRNS,
-	   KC_TRNS, KC_BTN1, KC_BTN2
+[MOUSE] = LAYOUT_ergodox_pretty(
+    KC_TRNS,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,              KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,         KC_F12,         KC_TRNS,
+    BASE_AS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_VOLU,            GMAIL,      KC_TRNS,    MS_WHLU,    MS_UP,      KC_TRNS,        KC_TRNS,        MS_ACL0,
+    LGUI(LCTL(KC_Q)), KC_MUTE, KC_MPRV, KC_MPLY,    KC_MNXT,    KC_TRNS,                                    MS_WHLL,    MS_LEFT,    MS_DOWN,    MS_RGHT,        MS_WHLR,        MS_ACL1,
+    KC_SLEP,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_VOLD,            EXAGRID,    KC_TRNS,    MS_WHLD,    KC_TRNS,    KC_TRNS,        KC_TRNS,        MS_ACL2,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                                            KC_TRNS,    KC_TRNS,    KC_TRNS,        GAME_FNITE,     GAME_AS,
+                                                                KC_TRNS,    KC_TRNS,            LALT(LSFT(KC_TAB)), LALT(KC_TAB),      
+                                                                            KC_TRNS,            KC_TRNS,
+                                                                RS_AS,KC_TRNS, KC_TRNS,         KC_TRNS, MS_BTN1, MS_BTN2
+	   
 ),
 [RSMITH] = LAYOUT_ergodox(
        // left hand
-       RGB_TOG,RGB_MODE_PLAIN,RGB_MODE_BREATHE,RGB_MODE_RAINBOW,RGB_MODE_SWIRL,RGB_MODE_SNAKE,RGB_MODE_KNIGHT,
-       RGB_MOD,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_VOLU,
-       RGB_RMOD,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+       //RGB_TOG,RGB_MODE_PLAIN,RGB_MODE_BREATHE,RGB_MODE_RAINBOW,RGB_MODE_SWIRL,RGB_MODE_SNAKE,RGB_MODE_KNIGHT,
+       //RGB_MOD,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_VOLU,
+       //RGB_RMOD,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+       KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+       KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+       KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
        KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_VOLD,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -325,7 +390,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_NO, KC_ESCAPE,
        KC_RBRC, KC_NO,        KC_END,    KC_NO,    KC_NO, KC_NO,        KC_ENTER,
                 // bottom row
-                KC_NO, KC_LSHIFT, KC_LCTRL,  KC_LALT,    KC_DEL,
+                KC_NO, KC_LSFT, KC_LCTL,  KC_LALT,    KC_DEL,
        // thumb cluster
        RSFT(KC_EQUAL), KC_F8,
        KC_UP,
@@ -334,9 +399,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [GAME] = LAYOUT_ergodox(
        // left hand
        KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,LSFT(KC_1),
-       KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_MS_WH_UP,
-       KC_LCTRL,KC_A,KC_S,KC_D,KC_F,KC_G,
-       KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_MS_WH_DOWN,
+       KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,MS_WHLU,
+       KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,
+       KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,MS_WHLD,
                // bottom row
                KC_LALT,LSFT(KC_2),LSFT(KC_3), LSFT(KC_4),LSFT(KC_5),
                                        // thumb cluster
@@ -344,12 +409,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_L,
                                KC_E, KC_R,KC_SPC,
        // right hand
-       KC_6, KC_7,        KC_8,    KC_9,    KC_0,    KC_DEL, KC_BSPACE,
-       KC_LBRC, KC_Y,        KC_U,    KC_I,      KC_O,     KC_P,        KC_BSLASH,
+       KC_6, KC_7,        KC_8,    KC_9,    KC_0,    KC_DEL, KC_BSPC,
+       KC_LBRC, KC_Y,        KC_U,    KC_I,      KC_O,     KC_P,        KC_BACKSLASH,
                 KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-       KC_RBRC, KC_N,        KC_M,    KC_COMM,    KC_DOT, KC_SLSH,        KC_RSHIFT,
+       KC_RBRC, KC_N,        KC_M,    KC_COMM,    KC_DOT, KC_SLASH,        KC_RSFT,
                 // bottom row
-                KC_NO, KC_LSHIFT, KC_KP_MINUS,  KC_KP_PLUS,   GAME_AS,
+                KC_NO, KC_LSFT, KC_KP_MINUS,  KC_KP_PLUS,   GAME_AS,
        // thumb cluster
        KC_LEFT, KC_RIGHT,
        KC_UP,
@@ -358,9 +423,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [FORTNITE] = LAYOUT_ergodox(
        // left hand
        KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,
-       KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_MS_WH_UP,
-       KC_LCTRL,KC_A,KC_S,KC_D,KC_F,KC_G,
-       KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_MS_WH_DOWN,
+       KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,MS_WHLU,
+       KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,
+       KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,MS_WHLD,
                // bottom row
                KC_LALT,LSFT(KC_2),LSFT(KC_3), LSFT(KC_4),LSFT(KC_5),
                                        // thumb cluster
@@ -368,12 +433,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_L,
                                KC_SPC, KC_R,KC_I,
        // right hand
-       KC_6, KC_7,        KC_8,    KC_9,    KC_0,    KC_DEL, KC_BSPACE,
-       KC_LBRC, KC_Y,        KC_U,    KC_I,      KC_O,     KC_P,        KC_BSLASH,
+       KC_6, KC_7,        KC_8,    KC_9,    KC_0,    KC_DEL, KC_BACKSPACE,
+       KC_LBRC, KC_Y,        KC_U,    KC_I,      KC_O,     KC_P,        KC_BACKSLASH,
                 KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-       KC_RBRC, KC_N,        KC_M,    KC_COMM,    KC_DOT, KC_SLSH,        KC_RSHIFT,
+       KC_RBRC, KC_N,        KC_M,    KC_COMM,    KC_DOT, KC_SLSH,        KC_RSFT,
                 // bottom row
-                KC_NO, KC_LSHIFT, KC_KP_MINUS,  KC_KP_PLUS,   GAME_FNITE,
+                KC_NO, KC_LSFT, KC_KP_MINUS,  KC_KP_PLUS,   GAME_FNITE,
        // thumb cluster
        KC_LEFT, KC_RIGHT,
        KC_UP,
@@ -381,7 +446,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+bool n_key_tapping_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case M_CMD_SPACE:
+            return true; // This tells QMK to count taps for this key
+        default:
+            return false;
+    }
+}
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // 1. Handle keys that need BOTH press and release logic (like M_CMD_SPACE)
+    switch(keycode) {
+        case M_CMD_SPACE: // if held, toggle number mode, if tapped, start spotlight (CMD - SPACE)
+            if (record->event.pressed) {
+                    // Start a timer to see if it's a tap or hold
+                    spc_tap_timer = timer_read();
+                    layer_on(NUMBER); // Switch to your desired layer (e.g., Layer 1)
+                } else {
+                    layer_off(NUMBER);
+                    // If the key was pressed and released quickly (a tap)
+                    if (timer_elapsed(spc_tap_timer) < TAPPING_TERM) {
+                        tap_code16(LGUI(KC_SPC));
+                    }
+                }
+            return false;
+    }
+    // 2. Handle keys that only trigger on "Press"
     if (record->event.pressed){
         switch (keycode) {
             case OCPAREN:
@@ -424,30 +514,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case END_NEWLINE:
                 SEND_STRING(SS_TAP(X_END) SS_TAP(X_ENTER));
                 return false;
-            case DELL:
-                SEND_STRING("jim.dibb@dell.com");
+            case EXAGRID:
+                SEND_STRING("jdibb@exagrid.com");
                 return false;
             case GMAIL:
                 SEND_STRING("jimdibb@gmail.com");
                 return false;
-            case VS_EMAIL:
-                SEND_STRING("jim.dibb@virtustream.com");
+            case BASE_AS:
+                layer_invert(BASE);
                 return false;
             case RS_AS:
                 autoshift_toggle();
                 layer_invert(RSMITH);
-                ergodox_right_led_1_off();
+                //ergodox_right_led_1_off();
                 return false;
             case GAME_AS:
                 autoshift_toggle();
                 layer_invert(GAME);
-                ergodox_right_led_1_off();
+                //ergodox_right_led_1_off();
                 return false;
             case GAME_FNITE:
                 autoshift_toggle();
                 layer_invert(FORTNITE);
-                ergodox_right_led_1_off();
+                //ergodox_right_led_1_off();
                 return false;
+            
+      return false;
         }
     }
     return true;
@@ -510,13 +602,13 @@ void matrix_init_user(void) {
     return;
 };
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        ergodox_right_led_1_on();
-    } else {
-        ergodox_right_led_1_off();
-    }
-}
+// void led_set_user(uint8_t usb_led) {
+//     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+//         ergodox_right_led_1_on();
+//     } else {
+//         ergodox_right_led_1_off();
+//     }
+// }
 
 
 // Runs constantly in the background, in a loop.
@@ -524,14 +616,14 @@ void matrix_scan_user(void) {
 
     uint8_t layer = biton32(layer_state);
 
-    ergodox_board_led_off();
+    ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
         case NUMBER:
         case SYMBOL:
 		case BRACKETS:
-		//case SHELL_LAYER:
+		case MAC:
             ergodox_right_led_2_on();
             break;
         case KEY_NAV:

@@ -1,10 +1,15 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-
+#define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
 #define RGBLIGHT_SLEEP
 #define AUTO_SHIFT_TIMEOUT 170
 // #define NO_AUTO_SHIFT_SPECIAL
 // #define NO_AUTO_SHIFT_NUMERIC
 // #define NO_AUTO_SHIFT_ALPHA
 #endif
+#undef VENDOR_ID
+#define VENDOR_ID 0x05AC
+#undef PRODUCT_ID
+#define PRODUCT_ID 0x0263
