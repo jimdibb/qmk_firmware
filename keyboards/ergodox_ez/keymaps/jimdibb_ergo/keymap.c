@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 [MAC] = LAYOUT_ergodox_pretty(
-    MT(MOD_LSFT,      KC_ESC),       KC_1,      KC_2,      KC_3,      KC_4,       KC_5,       MEH_T(KC_6),          KC_7,      KC_8,       KC_9,       KC_0,        KC_MINS,       KC_EQUAL,       KC_BSLS,
+    MT(MOD_LSFT, KC_ESC),       KC_1,      KC_2,      KC_3,      KC_4,       KC_5,       MEH_T(KC_6),          KC_7,      KC_8,       KC_9,       KC_0,        KC_MINS,       KC_EQUAL,       KC_BSLS,
     KC_TAB,           KC_QUOT,     KC_COMM,    KC_DOT,     KC_P,        KC_Y,               MO(KEY_SEL),            KC_PGUP,    KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
     OSM(MOD_LGUI),    KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                                    KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
     OSM(MOD_LSFT),    KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,               MO(MAC_KEY_NAV),        KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
