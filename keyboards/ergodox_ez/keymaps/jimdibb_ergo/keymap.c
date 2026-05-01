@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 [MAC] = LAYOUT_ergodox_pretty(
-    MT(MOD_LSFT, KC_ESC),       KC_F1,      KC_F2,      KC_F3,      KC_F4,       KC_F5,       MEH_T(KC_F6),     KC_F7,      KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
+    MT(MOD_LSFT, KC_ESC),       KC_1,      KC_2,      KC_3,      KC_4,       KC_5,       MEH_T(KC_6),     KC_7,      KC_8,       KC_9,       KC_0,        KC_F11,       KC_F12,       KC_BSLS,
     KC_TAB,                    KC_QUOT,     KC_COMM,    KC_DOT,     KC_P,        KC_Y,        MO(KEY_SEL),      KC_PGUP,    KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
     OSM(MOD_LGUI),              KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                      KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
     OSM(MOD_LSFT),             KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,        MO(MAC_KEY_NAV),      KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
@@ -358,24 +358,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-[MOUSE] = LAYOUT_ergodox(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, //RGB_TOG, RGB_MOD
-       BASE_AS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU,
-       LGUI(LCTL(KC_Q)), KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
-       KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  RS_AS,KC_TRNS, KC_TRNS,
-    // right hand
-       EXAGRID,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LWIN,
-       GMAIL,  KC_TRNS, MS_WHLU, MS_UP, KC_TRNS, KC_TRNS, MS_ACL0,
-                 MS_WHLR, MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLR, MS_ACL1,
-       KC_TRNS,  KC_TRNS, MS_WHLD, KC_TRNS, KC_TRNS, KC_TRNS, MS_ACL2,
-                          KC_TRNS, KC_TRNS, KC_TRNS, GAME_FNITE, GAME_AS,
-       LALT(LSFT(KC_TAB)), LALT(KC_TAB),
-       KC_TRNS,
-	   KC_TRNS, MS_BTN1, MS_BTN2
+[MOUSE] = LAYOUT_ergodox_pretty(
+    KC_TRNS,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,              KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,         KC_F12,         KC_TRNS,
+    BASE_AS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_VOLU,            GMAIL,      KC_TRNS,    MS_WHLU,    MS_UP,      KC_TRNS,        KC_TRNS,        MS_ACL0,
+    LGUI(LCTL(KC_Q)), KC_MUTE, KC_MPRV, KC_MPLY,    KC_MNXT,    KC_TRNS,                                    MS_WHLL,    MS_LEFT,    MS_DOWN,    MS_RGHT,        MS_WHLR,        MS_ACL1,
+    KC_SLEP,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_VOLD,            EXAGRID,    KC_TRNS,    MS_WHLD,    KC_TRNS,    KC_TRNS,        KC_TRNS,        MS_ACL2,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                                            KC_TRNS,    KC_TRNS,    KC_TRNS,        GAME_FNITE,     GAME_AS,
+                                                                KC_TRNS,    KC_TRNS,            LALT(LSFT(KC_TAB)), LALT(KC_TAB),      
+                                                                            KC_TRNS,            KC_TRNS,
+                                                                RS_AS,KC_TRNS, KC_TRNS,         KC_TRNS, MS_BTN1, MS_BTN2
+	   
 ),
 [RSMITH] = LAYOUT_ergodox(
        // left hand
