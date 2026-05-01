@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     OSM(MOD_LSFT),             KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,        MO(MAC_KEY_NAV),      KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
     MO(MOUSE),                  KC_LEFT_CTRL,    OSM(MOD_LALT),  MO(SYMBOL)  , M_CMD_SPACE,                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), LCMD(KC_LEFT), LCMD(KC_T),  LCMD(KC_W),
                                        // thumb cluster                                                             // thumb cluster
-                                               RALT(RSFT(RCTL(KC_GRV))), LGUI(KC_S),                                         KC_LEFT,    KC_RIGHT,
+                                               RSFT(RCTL(KC_GRV)), LGUI(KC_S),                                         KC_LEFT,    KC_RIGHT,
                                                           RALT(KC_DEL),                                             KC_UP,
                                             KC_BSPC, RALT(KC_BSPC), KC_DEL,                                           KC_DOWN, KC_ENT, KC_SPC
 ),
