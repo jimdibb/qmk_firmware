@@ -18,6 +18,6 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [0] = LAYOUT(KC_LGUI, KC_C, KC_V),
+    [0] = LAYOUT(LCMD(KC_SPC), LCMD(KC_C), LCMD(KC_V)),
 
 };
