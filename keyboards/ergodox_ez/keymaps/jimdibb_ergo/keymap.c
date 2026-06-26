@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MAC] = LAYOUT_ergodox_pretty(
     MT(MOD_LSFT, KC_ESC),       KC_1,      KC_2,      KC_3,      KC_4,       KC_5,       MEH_T(KC_6),          KC_7,      KC_8,       KC_9,       KC_0,        KC_MINS,       KC_EQUAL,       KC_BSLS,
     KC_TAB,           KC_QUOT,     KC_COMM,    KC_DOT,     KC_P,        KC_Y,               MO(KEY_SEL),            KC_PGUP,    KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
-    OSM(MOD_LGUI),    KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                                    KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
-    OSM(MOD_LSFT),    KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,               MO(MAC_KEY_NAV),        KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         MO(BRACKETS),
+    OSM(MOD_LGUI),    KC_A,       KC_O,       KC_E,       KC_U,        KC_I,                                                    KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         MO(BRACKETS),
+    OSM(MOD_LSFT),    KC_SCLN,     KC_Q,       KC_J,       KC_K,        KC_X,               MO(MAC_KEY_NAV),        KC_PGDN,    KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         OSM(MOD_LSFT),
     MO(MOUSE),        KC_LEFT_CTRL,    OSM(MOD_LALT),  MO(SYMBOL)  , MO(NUMBER),                                        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), LCMD(KC_LEFT), LCMD(KC_T),  LCMD(KC_W),
                                        // thumb cluster                                                             // thumb cluster
                                                RSFT(RCTL(KC_GRV)), LGUI(KC_S),                                         KC_LEFT,    KC_RIGHT,
@@ -363,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     BASE_AS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_VOLU,            GMAIL,      KC_TRNS,    MS_WHLU,    MS_UP,      KC_TRNS,        KC_TRNS,        MS_ACL0,
     LGUI(LCTL(KC_Q)), KC_MUTE, KC_MPRV, KC_MPLY,    KC_MNXT,    KC_TRNS,                                    MS_WHLL,    MS_LEFT,    MS_DOWN,    MS_RGHT,        MS_WHLR,        MS_ACL1,
     KC_SLEP,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_VOLD,            EXAGRID,    KC_TRNS,    MS_WHLD,    KC_TRNS,    KC_TRNS,        KC_TRNS,        MS_ACL2,
-    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                                            KC_TRNS,    KC_TRNS,    KC_TRNS,        GAME_FNITE,     GAME_AS,
+    KC_TRNS,    AS_TOGG,    KC_TRNS,    KC_TRNS,    KC_TRNS,                                                            KC_TRNS,    KC_TRNS,    KC_TRNS,        GAME_FNITE,     GAME_AS,
                                                                 KC_TRNS,    KC_TRNS,            LALT(LSFT(KC_TAB)), LALT(KC_TAB),      
                                                                             KC_TRNS,            KC_TRNS,
                                                                 RS_AS,KC_TRNS, KC_TRNS,         KC_TRNS, MS_BTN1, MS_BTN2
