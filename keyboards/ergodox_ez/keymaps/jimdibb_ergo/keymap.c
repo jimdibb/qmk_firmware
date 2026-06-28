@@ -471,6 +471,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             return false;
     }
+
     // 2. Handle keys that only trigger on "Press"
     if (record->event.pressed){
         switch (keycode) {
@@ -644,6 +645,9 @@ void matrix_scan_user(void) {
         default:
             // none
             break;
+    }
+    if (get_autoshift_state() == false) {
+        ergodox_right_led_3_on();
     }
     return;
 };
