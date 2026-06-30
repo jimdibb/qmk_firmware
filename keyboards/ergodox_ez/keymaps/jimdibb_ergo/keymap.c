@@ -21,7 +21,8 @@ enum keyboard_layers {
     MOUSE,
     RSMITH,
     GAME,
-    FORTNITE
+    FORTNITE,
+    MAC_KEY_SEL
 };
 
 
@@ -629,6 +630,8 @@ void matrix_scan_user(void) {
             break;
         case KEY_NAV:
         case KEY_SEL:
+        case MAC_KEY_NAV:
+        case MAC_KEY_SEL:
             ergodox_right_led_3_on();
             break;
         case MOUSE:
